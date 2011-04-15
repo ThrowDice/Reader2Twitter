@@ -1,0 +1,14 @@
+cron:
+
+- description: mail updatestat summary daily
+  url: /admin/mail/updatesummary
+  schedule: every 24 hours
+
+- description: Daily exception report
+  url: /_ereporter?sender=YOUR_ADMIN_EMAIL&to=YOUR_ADMIN_EMAIL&delete=false  # The sender must be an app admin.
+  schedule: every 12 hours
+
+- description: clear old updates
+  url: /admin/db/cou
+  schedule: every 24 hours
+

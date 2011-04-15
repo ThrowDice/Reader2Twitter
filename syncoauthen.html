@@ -1,0 +1,208 @@
+<html>
+<head>
+<title>Reader2Twitter - Sync Your Google Reader Shared Items to Twitter</title> 
+<link rel="icon" href="/assets/favicon.png" sizes="32x32">
+<script type="text/javascript" src="/assets/jquery-1.3.1.min.js"></script>
+<script type="text/javascript">
+function option(){
+    $("#option").show("slow");
+};
+function get_radio_value()
+{
+for (var i=0; i < document.mainform.synctype.length; i++)
+   {
+   if (document.mainform.synctype[i].checked)
+      {
+      return document.orderform.music[i].value;
+      }
+   }
+}
+$(document).ready(function(){
+    $("#mainform").submit(function(){
+        //pageTracker._setVar('Reader-Sync:'+this.mode.options[this.mymenu.selectedIndex].value);
+        //pageTracker._setVar('Reader-Synctype:'+get_radio_value());
+        $("#message").hide();
+        $("#loading").show();
+        var str = $(this).serialize();
+        $.ajax({
+        type:"POST",
+        url: "/enuser",        
+        data: str,
+        success: function(msg){$("#message").show();$("#message").html(msg);$("#loading").hide();}
+        });
+        return false;
+    });
+});
+</script>
+<style>
+html {
+background:#777362 url(/assets/p.gif) repeat fixed center top;
+color:#5A584B;
+font-family:Arial,Helvetica,sans-serif;
+font-size:0.85em;
+height:100%;
+line-height:1.6em;
+margin:0;
+padding:0;
+text-align:center;
+width:100%;
+}
+#centerBody {
+background-color:#FFFFFF;
+background-position:center top;
+background-repeat:no-repeat;
+margin:0 auto;
+padding:0 20px 20px;
+text-align:left;
+width:880px;
+}
+a{text-decoration:none;color:#DB8900;}
+a:hover {
+text-decoration:underline;
+}
+#footer {
+clear:both;
+margin:0 auto 20px;
+padding:0;
+text-align:left;
+width:920px;
+}
+.footer_content {
+background-color:#2E2D26;
+border-bottom:1px solid #C5B496;
+border-top:4px solid #312D25;
+padding:8px 20px 20px;
+}
+.subnav{
+float:left;
+font-size:12px;
+margin:0;
+padding:0;
+text-align:left;
+}
+</style>
+<div id="centerBody">
+</head>
+<body onLoad="javascript:pageTracker._setVar('GR2T User');">
+<p style="padding:5px;background-color:yellow;">
+Official Twitter:<a href="https://twitter.com/gr2t">@gr2t</a>	Official Google Group:<a href="http://groups.google.com/group/reader2twitter">Reader2Twitter</a>	Developer:<a href="https://twitter.com/lookon">@lookon</a>
+</p>
+<form id="mainform" action="/enuser" method="post">
+  <div><h1>Reader2Twitter-Sync Your Google Reader Shared Items to Twitter</h1>
+  <p><h2><a href="/buzz">Buzz2Twitter here</a></h2></p>  
+  <p>Using <a TARGET="_blank" href="http://code.google.com/p/pubsubhubbub/">pubsubhubbub</a> protocol to make sync real-time. Forget friendfeed's ff.im forever.<span style="color:red">New:now you can bind your bit.ly account.</span></p>
+  </div>
+  <table>
+  <tbody>
+  <tr>
+  <td>
+  Twitter Username</td>  
+  <td>
+  {{gruser.username}} (<a href="/oauth/twitter/logout">Sign out</a> using another account)
+  </td>
+  </tr>
+  <tr>
+  <td>
+  Twitter Authentication</td>  
+  <td>
+  OAuth
+  </td>
+  </tr>
+  <tr>
+  <td>
+  Google Reader <b>Number</b> ID</td>  
+  <td>
+  <input name="grid" size="25" value="{{gruser.readerid}}"> (<a target="_blank" href="http://g2t.posterous.com/how-to-setup-google-reader-number-id-in-reade#">How to setup Number ID?</a>)
+  </td>
+  </tr> 
+ <tr>
+ <td>bit.ly login(optional)</td>
+ <td>
+ <input name="bitlylogin" size="25" value="{{gruser.bitlylogin}}">
+ </td>
+ </tr> 
+ <tr>
+ <td>bit.ly API Key(optional)</td>
+ <td>
+ <input name="bitlykey" size="25" value="{{gruser.bitlykey}}"> (Get API Key:<a target="_blank" href="http://bit.ly/account/">bit.ly/account/</a>)
+ </td>
+ </tr> 
+  <tr>
+  <td>Sync</td>
+  <td>
+<select name="mode"> 
+      <option value="subscribe">On</option> 
+      <option value="unsubscribe">Off</option> 
+</select>  
+
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <p>eg:in http://www.google.com/reader/shared/16797483721654978846, the ID is <b>16797483721654978846</b>,<span style="color:red">must use the number id</span>
+  <br/>
+  get your Google Reader ID:<a target="_blank" href="http://www.google.com/reader/view/#friends-manager-page">enter</a> 
+  </p>
+<p><a href="javascript:option();return false">Option</a></p>
+<p>Tweet Format(optional) <input name="format" size="100" value="{{gruser.format}}">  </p>
+   <p>Parameter:Title-<b>{title}</b>,url-<b>{url}</b>,Note-<b>{comment}</b>
+   <br/>eg:[GReader Share]{title} {url} - {comment}
+   <br/>default:{title} {url} {comment}</p>
+<p>
+    <input type="radio" name="synctype" value="all" {{gruser.synctype.all}}> Sync All Share<br>
+    <input type="radio" name="synctype" value="comment" {{gruser.synctype.comment}}> Only Sync Share with Note(Using <b>"Share with note"</b> or <b>"<a href="javascript:var%20b=document.body;var%20GR________bookmarklet_domain='http://www.google.com';if(b&&!document.xmlVersion){void(z=document.createElement('script'));void(z.src='http://www.google.com/reader/ui/link-bookmarklet.js');void(b.appendChild(z));}else{}">Note in Reader</a>"</b> bookmarklet)<br>
+    <input type="radio" name="synctype" value="note" {{gruser.synctype.note}}> Only Sync Note(Using Reader to Tweet)
+   </p>
+  <div><input type="submit" value="Submit">
+<img id="loading" style="display:none;" src="/assets/loading.gif"/>
+<div style="display:none;padding:5px;" id="message"></div>
+</div>
+</form>
+<div>
+	<p><b>Donate $1 for supporting us :-)</b></p>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHXwYJKoZIhvcNAQcEoIIHUDCCB0wCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYCGnV2zHLwmPrYUFQx0U5+OProdFckPf70AMEYqo3yS7ibHQbf01AxPeI9vpjZ8ucojGudiXS1w0jaDo6gBfYnbMF6IwNlHMl8PK+gQziw021Mw97suhe26rYpDg2eL9CB6sc19Qv5xaSmgWtdehWgEMqOSmCMnswt2/jLJEu8lNzELMAkGBSsOAwIaBQAwgdwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIKKUHEOk0B7uAgbj5wgsRf4uw5Z5I4MS7uFYCCdDI29GbC4UqudO4zvgTtY3/97TgVwoA4c5QKNeCk6apvSRyUQBB58QMplYuQPQ6qHIjiEMVripi08p+dKOYuRSY/bmljpuWa3j8VtWUqovFW/e/5SnzHHKtwqT+JJ2lt61CS6nvGH/TPvoejmc07jVkhHmB5tGV9LnFrGXs1r+4awyQRN6TwWlpVqZkDX0x+HHDETovxWSPybkCZJVrQaNlXLGD0viDoIIDhzCCA4MwggLsoAMCAQICAQAwDQYJKoZIhvcNAQEFBQAwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMB4XDTA0MDIxMzEwMTMxNVoXDTM1MDIxMzEwMTMxNVowgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBR07d/ETMS1ycjtkpkvjXZe9k+6CieLuLsPumsJ7QC1odNz3sJiCbs2wC0nLE0uLGaEtXynIgRqIddYCHx88pb5HTXv4SZeuv0Rqq4+axW9PLAAATU8w04qqjaSXgbGLP3NmohqM6bV9kZZwZLR/klDaQGo1u9uDb9lr4Yn+rBQIDAQABo4HuMIHrMB0GA1UdDgQWBBSWn3y7xm8XvVk/UtcKG+wQ1mSUazCBuwYDVR0jBIGzMIGwgBSWn3y7xm8XvVk/UtcKG+wQ1mSUa6GBlKSBkTCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb22CAQAwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBXzpWmoBa5e9fo6ujionW1hUhPkOBakTr3YCDjbYfvJEiv/2P+IobhOGJr85+XHhN0v4gUkEDI8r2/rNk1m0GA8HKddvTjyGw/XqXa+LSTlDYkqI8OwR8GEYj4efEtcRpRYBxV8KxAW93YDWzFGvruKnnLbDAF6VR5w/cCMn5hzGCAZowggGWAgEBMIGUMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTAwODE2MTEwNTM5WjAjBgkqhkiG9w0BCQQxFgQU1DPRQ6EUFLQvS6hxDiHYwDLNi5wwDQYJKoZIhvcNAQEBBQAEgYAPxTAIqP4V6fFGKsU2CZNUl/z//BEriNR8HGumaa8yAtVDwHjVRZ7Frn7jayFk8YGQClxIP0delZNmgRlVIKzKyXvP7QB1tCDnLgqdKWzcKJSouZbI+oaDq1Q8JbJ6Hx4ZXMr39sYr/q7N82NM3wFAbY2bEX/41pnO10LbDOOh8g==-----END PKCS7-----
+		">
+		<input type="image" src="http://www.twip.org/design/donate-with-paypal.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+		</form>
+</div>
+
+<p>
+<span style="color:red">Caution:If you have many share, do not sync them to Twitter :)</span>
+</p>
+<p>
+<span style="color:blue"><b>Make sure your GReader Share is set "Public(Anyone can view)"</b></span>
+</p>
+
+</div>
+<div id="footer">
+<div class="footer_content">
+<div>Reader2Twitter</div>
+<!-- <div style="float: right; width: 750px; margin-left: 30px; margin-top: 8px;">
+<div class="subnav" style="float: right;">
+<ul>
+<li>
+<a href="htt">kangye's blog</a>
+</li>
+</ul>
+</div>-->
+</div> 
+</div>
+<div style="margin-top: 10px;">
+<br style="clear: both;"/>
+</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10567399-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>Reader2Twitter - Sync Your Google Reader Shared Items to Twitter</title> 
+<meta name="verify-v1" content="2AZ1DWvonC4Akw1t4jKd5dhQezIz2L9Y65XPib1T3Uw=" />
+<link rel="icon" href="/assets/favicon.png" sizes="32x32">
+<style>
+html {
+background:#777362 url(/assets/p.gif) repeat fixed center top;
+color:#5A584B;
+font-family:Arial,Helvetica,sans-serif;
+font-size:0.85em;
+height:100%;
+line-height:1.6em;
+margin:0;
+padding:0;
+text-align:center;
+width:100%;
+}
+#centerBody {
+background-color:#FFFFFF;
+background-position:center top;
+background-repeat:no-repeat;
+margin:0 auto;
+padding:0 20px 20px;
+text-align:left;
+width:880px;
+}
+a{text-decoration:none;color:#DB8900;}
+a:hover {
+text-decoration:underline;
+}
+#footer {
+clear:both;
+margin:0 auto 20px;
+padding:0;
+text-align:left;
+width:920px;
+}
+.footer_content {
+background-color:#2E2D26;
+border-bottom:1px solid #C5B496;
+border-top:4px solid #312D25;
+padding:8px 20px 20px;
+}
+.subnav{
+float:left;
+font-size:12px;
+margin:0;
+padding:0;
+text-align:left;
+}
+</style>
+</head>
+<body>
+<div id="centerBody">
+<p style="padding:5px;background-color:yellow;">
+Official Twitter:<a href="https://twitter.com/gr2t">@gr2t</a>	Official Google Group:<a href="http://groups.google.com/group/reader2twitter">Reader2Twitter</a>	Developer:<a href="https://twitter.com/lookon">@lookon</a>
+
+</p>
+
+  <div><h1>Reader2Twitter-Sync Your Google Reader Shared Items to Twitter</h1>
+	<p><b>Donate $1 for supporting us :-)</b></p>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+		">
+		<input type="image" src="http://www.twip.org/design/donate-with-paypal.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+		</form>
+	
+  <p>new!<h2><a href="/buzz">Now support Sync Google 'Buzz' to Twitter</a></h2></p>  
+  <p>Using <a TARGET="_blank" href="http://code.google.com/p/pubsubhubbub/">pubsubhubbub</a> protocol to make sync real-time. Forget friendfeed's ff.im forever.</p>
+  </div>
+<div>
+<a href="/oauth/twitter/login"><img src="/assets/step-1.gif"/><img src="/assets/connect-to.gif"/><img src="/assets/twitter.gif"/></a>
+</div>
+<div>
+<img src="/assets/step-2.gif"/><img src="/assets/enter-your.gif"/><img src="/assets/google-reader.gif"/><img src="/assets/Number-ID.gif"/>
+</div>
+<div>
+<img src="/assets/step-3.gif"/><img src="/assets/Reader2Twitter.gif"/><img src="/assets/will-do-the.gif"/><img src="/assets/rest.gif"/>
+</div>
+
+  <p><h3>Oauth Authentication</h3>
+  <a title="Login via Twitter" href="/oauth/twitter/login"><img src="/assets/sign.gif"/></a>
+  </p>
+<p>
+<p>
+<span style="color:#009900;font-size:18px;"><b>"A very cool tool"</b></span><span style="font-size:10px;color:#444444;"> –Louis Gray, Silicon Valley Tech Geek Blogger</span>
+
+</p>
+<h2>With reader2twitter you can:</h2>
+<ul>
+<li>real-time sync your Google Reader shared item to Twitter</li>
+<li>auto shorten link using j.mp's service by bitly</li>
+<li>format you sync tweet using parameter</li>
+<li>using Google Reader to tweet</li>
+<li>3 sync types</li>
+</ul>
+</p>
+</div>
+<div id="footer">
+<div class="footer_content">
+<div>Reader2Twitter</div>
+<div style="display:none">
+ Sync Google Reader to Twitter
+  Sync Google Reader to Twitter
+ Sync Google Reader to Twitter
+ link Google Reader to Twitter
+ push Google Reader to Twitter
+</div>
+
+<!-- <div style="float: right; width: 750px; margin-left: 30px; margin-top: 8px;">
+<div class="subnav" style="float: right;">
+<ul>
+<li>
+<a href="htt">kangye's blog</a>
+</li>
+</ul>
+</div>-->
+</div> 
+</div>
+<div style="margin-top: 10px;">
+<br style="clear: both;"/>
+</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10567399-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>

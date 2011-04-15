@@ -1,0 +1,206 @@
+<html>
+<head>
+<title>Reader2Twitter - 同步你的Google Reader Shared Items到Twitter</title> 
+<link rel="icon" href="/assets/favicon.png" sizes="32x32">
+<script type="text/javascript" src="/assets/jquery-1.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#mainform").submit(function(){
+        $("#message").hide();
+        $("#loading").show();
+        var str = $(this).serialize();
+        $.ajax({
+        type:"POST",
+        url: "/cn",        
+        data: str,
+        success: function(msg){$("#message").show();$("#message").html(msg);$("#loading").hide();}
+        });
+        return false;
+    });
+});
+</script>
+<style>
+html {
+background:#777362 url(/assets/p.gif) repeat fixed center top;
+color:#5A584B;
+font-family:Arial,Helvetica,sans-serif;
+font-size:0.85em;
+height:100%;
+line-height:1.6em;
+margin:0;
+padding:0;
+text-align:center;
+width:100%;
+}
+#centerBody {
+background-color:#FFFFFF;
+background-position:center top;
+background-repeat:no-repeat;
+margin:0 auto;
+padding:0 20px 20px;
+text-align:left;
+width:880px;
+}
+a{text-decoration:none;color:#DB8900;}
+a:hover {
+text-decoration:underline;
+}
+#footer {
+clear:both;
+margin:0 auto 20px;
+padding:0;
+text-align:left;
+width:920px;
+}
+.footer_content {
+background-color:#2E2D26;
+border-bottom:1px solid #C5B496;
+border-top:4px solid #312D25;
+padding:8px 20px 20px;
+}
+.subnav{
+float:left;
+font-size:12px;
+margin:0;
+padding:0;
+text-align:left;
+}
+</style>
+</head>
+<body onLoad="javascript:pageTracker._setVar('CN GR User');">
+<div id="centerBody">
+<p style="padding:5px;background-color:yellow;">官方Twitter帐号:<a href="https://twitter.com/gr2t">@gr2t</a>	官方Google Group:<a href="http://groups.google.com/group/reader2twitter">Reader2Twitter</a>	开发者:<a href="https://twitter.com/lookon">@lookon</a></p>
+<form id="mainform" action="/cn" method="post">
+  <div><h1>Reader2Twitter-将Google Reader Shared Item同步到Twitter</h1>
+  <p>使用<a href="http://code.google.com/p/pubsubhubbub/">pubsubhubbub</a>协议实时同步。再也不用见到ff.im了。<span style="color:red">新功能:现在Reader2Twitter支持绑定你的bit.ly账号了</span>
+</p>
+  </div>
+  <p><h3>Oauth验证(如果你可以访问twitter.com)</h3>
+  <a title="Login via Twitter" href="/oauth/twitter/login"><img src="/assets/sign.gif"/></a>
+  </p>
+  <h3>Basic验证</h3>  
+  <table>
+  <tbody>
+  <tr>
+  <td>
+  Twitter用户名</td>  
+  <td>
+  <input name="username" size="25">
+  </td>
+  </tr>
+  <tr>
+  <td>
+  Twitter密码</td>  
+  <td>
+  <input name="password" type="password" size="25">
+  </td>
+  </tr>
+  <tr>
+  <td>
+  Google Reader <b>数字</b>ID</td>  
+  <td>
+  <input name="grid" size="25">
+  </td>
+  </tr> 
+<tr>
+<td>bit.ly用户名(选填)</td>
+<td>
+<input name="bitlylogin" size="25">
+</td>
+</tr> 
+<tr>
+<td>bit.ly API Key(选填)</td>
+<td>
+<input name="bitlykey" size="25"> (获取API Key:<a target="_blank" href="http://bit.ly/account/">bit.ly/account/</a>)
+</td>
+</tr>
+<tr>
+<td>同步</td>
+<td>
+<select name="mode" id="mode"> 
+      <option value="subscribe" selected="selected">开启</option> 
+      <option value="unsubscribe">关闭</option> 
+</select> 
+
+</td>
+</tr>
+  </tbody>
+  </table>
+  <p>如:http://www.google.com/reader/shared/16797483721654978846 中的 <b>16797483721654978846</b>,<span style="color:red">必须是那个数字id</span>
+  <br/>
+  获取ID的地址:<a target="_blank" href="http://www.google.com/reader/view/#friends-manager-page">进入</a>
+  </p>
+
+  <p>输出格式(选填) <input name="format" size="100" default="a">  </p>
+    <p>可选参数，标题<b>{title}</b>,链接<b>{url}</b>,评论<b>{comment}</b>
+    <br/>比如:{comment} {title} {url} 或者 [分享]{title} {url}</p>
+      
+<p>
+    <input type="radio" name="synctype" value="all" checked> 同步所有分享<br>
+    <input type="radio" name="synctype" value="comment"> 只同步有Note的分享(必须是Share with Note或使用Note in Reader)<br>
+    <input type="radio" name="synctype" value="note"> 只同步Note(相当于用Reader来推特)
+</p> 
+
+<div><input type="submit" value="提交"><img id="loading" style="display:none;" src="/assets/loading.gif"/>
+<div style="display:none;padding:5px;" id="message"></div>
+</div>
+</form>
+<p>
+<span style="color:red">注意:如果你的分享量很大的话，就不要同步到Twitter了 = =</span>
+</p>
+<p>
+<span style="color:blue">Tips:你在Google Reader中的评论也会出现在Tweet里面</span>
+</p>
+<p>
+<a href="/en">English Version</a>
+</p>
+
+
+</div>
+<div id="footer">
+<div class="footer_content">
+<div>Reader2Twitter</div>
+<!-- <div style="float: right; width: 750px; margin-left: 30px; margin-top: 8px;">
+<div class="subnav" style="float: right;">
+<ul>
+<li>
+<a href="htt">kangye's blog</a>
+</li>
+</ul>
+</div>-->
+</div> 
+</div>
+<div style="margin-top: 10px;">
+<br style="clear: both;"/>
+</div>
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+var sc_project=5090893; 
+var sc_invisible=1; 
+var sc_partition=58; 
+var sc_click_stat=1; 
+var sc_security="7ef7f738"; 
+</script>
+
+<script type="text/javascript"
+src="http://www.statcounter.com/counter/counter.js"></script><noscript><div
+class="statcounter"><a title="iweb visitor"
+href="http://www.statcounter.com/iweb/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/5090893/0/7ef7f738/1/"
+alt="iweb visitor" ></a></div></noscript>
+<!-- End of StatCounter Code -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10567399-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>

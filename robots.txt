@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /enuser/
+Disallow: /cnuser/

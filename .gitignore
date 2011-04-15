@@ -1,0 +1,12 @@
+*.swp
+*.swo
+tags
+*.zip
+*.pyc
+config.py
+app.yaml
+cron.yaml
+index.yaml
+mapreduce.yaml
+mapreduce/
+mapjob.py

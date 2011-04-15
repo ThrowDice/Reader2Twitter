@@ -1,0 +1,27 @@
+queue:
+- name: default
+  rate: 1/s
+  bucket_size: 1
+- name: fetch-old
+  rate: 5/m
+  bucket_size: 1
+- name: pub-twitter
+  rate: 1/m
+  bucket_size: 1
+- name: buzz2twitter
+  rate: 1/s
+  bucket_size: 1
+- name: clear-db
+  rate: 1/m
+  bucket_size: 1
+- name: save-old
+  rate: 1/s
+  bucket_size: 1
+- name: reader-twitter
+  rate: 1/s
+  bucket_size: 1
+
+
+
+
+

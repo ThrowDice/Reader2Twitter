@@ -1,0 +1,190 @@
+<html>
+<head>
+<title>Buzz2Twitter-Sync your Google Buzz to Twitter</title> 
+<link rel="icon" href="/assets/favicon.png" sizes="32x32">
+<script type="text/javascript" src="/assets/jquery-1.3.1.min.js"></script>
+<script type="text/javascript">
+function option(){
+    $("#option").show("slow");
+};
+$(document).ready(function(){
+    $("#mainform").submit(function(){
+        //pageTracker._setVar('Buzz-Sync:'+this.mode.options[this.mymenu.selectedIndex].value);
+        //pageTracker._setVar('Buzz-Buzzlink:'+this.buzzlink.options[this.mymenu.selectedIndex].value);
+        $("#message").hide();
+        $("#loading").show();
+        var str = $(this).serialize();
+        $.ajax({
+        type:"POST",
+        url: "/buzz",        
+        data: str,
+        success: function(msg){$("#message").show();$("#message").html(msg);$("#loading").hide();}
+        });
+        return false;
+    });
+});
+</script>
+<style>
+html {
+background:#777362 url(/assets/p.gif) repeat fixed center top;
+color:#5A584B;
+font-family:Arial,Helvetica,sans-serif;
+font-size:0.85em;
+height:100%;
+line-height:1.6em;
+margin:0;
+padding:0;
+text-align:center;
+width:100%;
+}
+#centerBody {
+background-color:#FFFFFF;
+background-position:center top;
+background-repeat:no-repeat;
+margin:0 auto;
+padding:0 20px 20px;
+text-align:left;
+width:880px;
+}
+a{text-decoration:none;color:#DB8900;}
+a:hover {
+text-decoration:underline;
+}
+#footer {
+clear:both;
+margin:0 auto 20px;
+padding:0;
+text-align:left;
+width:920px;
+}
+.footer_content {
+background-color:#2E2D26;
+border-bottom:1px solid #C5B496;
+border-top:4px solid #312D25;
+padding:8px 20px 20px;
+}
+.subnav{
+float:left;
+font-size:12px;
+margin:0;
+padding:0;
+text-align:left;
+}
+</style>
+<div id="centerBody">
+</head>
+<body onLoad="javascript:pageTracker._setVar('B2T User');">
+<p style="padding:5px;background-color:yellow;">
+Official Twitter:<a href="https://twitter.com/gr2t">@gr2t</a>	Official Google Group:<a href="http://groups.google.com/group/reader2twitter">Reader2Twitter</a>	Developer:<a href="https://www.google.com/profiles/areyoulookon">@lookon</a>
+</p>
+
+<form id="mainform" action="/buzz" method="post">
+  <div><h1>Buzz2Twitter-Sync your Google Buzz to Twitter</h1>
+  <p><h2><a href="/enuser">Reader2Twitter here</a></h2></p>
+  <p>Using <a TARGET="_blank" href="http://code.google.com/p/pubsubhubbub/">pubsubhubbub</a> protocol to make sync real-time. Forget friendfeed's ff.im forever.<span style="color:red">New:now you can bind your bit.ly(Pro) account.</span></p>
+  </div>
+  <table>
+  <tbody>
+  <tr>
+  <td>
+  Twitter Username</td>  
+  <td>
+  {{gruser.username}} (<a href="/oauth/twitter/logout">Sign out</a> using another account)
+  </td>
+  </tr>
+  <tr>
+  <td>
+  Twitter Authentication</td>  
+  <td>
+  OAuth
+  </td>
+  </tr>
+  <tr>
+  <td>
+  Google Profile <b>Number</b> ID</td>  
+  <td>
+  <input name="gpid" size="25" value="{{gruser.profileid}}"> 
+  (<a href="http://g2t.posterous.com/how-to-setup-google-profile-number-id-in-buzz" target="_blank">find it here</a> at the bottom of the page by clicking "See other options")
+  </td>
+  </tr> 
+ <tr>
+ <td>bit.ly login(optional)</td>
+ <td>
+ <input name="bitlylogin" size="25" value="{{gruser.bitlylogin}}">
+ </td>
+ </tr> 
+ <tr>
+ <td>bit.ly API Key(optional)</td>
+ <td>
+ <input name="bitlykey" size="25" value="{{gruser.bitlykey}}"> (Get API Key:<a target="_blank" href="http://bit.ly/account/">bit.ly/account/</a>)
+ </td>
+ </tr> 
+  <tr>
+  <td>Sync</td>
+  <td>
+<select name="mode"> 
+      <option value="subscribe">On</option> 
+      <option value="unsubscribe">Off</option> 
+</select>  
+
+  </td>
+  </tr>
+  <tr>
+  <td>insert buzz link in tweet?</td>
+  <td>
+<select name="buzzlink"> 
+      <option value="disable">No</option> 
+      <option value="enable">Yes</option> 
+</select>  
+
+  </td>
+  </tr>
+  </tbody>
+  </table>
+   <div><input type="submit" value="Submit">
+<img id="loading" style="display:none;" src="/assets/loading.gif"/>
+<div style="display:none;padding:5px;" id="message"></div>
+</div>
+</form>
+<div>
+<script type="text/javascript"><!--
+google_ad_client = "pub-9788664313457816";
+/* reader2twitter */
+google_ad_slot = "5945339688";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<p>
+<span style="color:red">If you have many share, do not sync them to Twitter :)</span>
+</p>
+<p>
+<span style="color:blue"><b>Only the buzz you write in Google Buzz(not from 3rd party site) will be synced.</b></span>
+</p>
+
+</div>
+<div id="footer">
+<div class="footer_content">
+<div>Buzz2Twitter</div>
+</div> 
+</div>
+<div style="margin-top: 10px;">
+<br style="clear: both;"/>
+</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10567399-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>

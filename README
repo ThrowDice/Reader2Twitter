@@ -1,0 +1,17 @@
+admin.html The index of admin 
+admin.py The handler of admin, collect daily status and email to developer 
+app.yaml The configuration file for app engine app
+appengine_console.py local console for remote api
+assets Images for the website
+bitly.py bit.ly library
+buzzen.html buzz homepage
+buzzoauthen.html buzz config page
+config.py twitter oauth configuration
+cron.yaml app engine cron job configuration
+index.yaml app engine data index configuration
+models.py reader2twitter's data
+pubsub.py the main handler for reader2twitter
+queue.yaml app engine queue task configuration
+robot.txt search engine
+twitter_oauth_handler twitter oauth library for app engine
+weiboindex.html index for sina microblog(Chinese twitter)
