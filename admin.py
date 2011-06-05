@@ -29,6 +29,15 @@ class RUSGraph(webapp.RequestHandler):
         logging.info(graph_url)
         self.response.out.write('<img src="%s"/>' % graph_url)
 
+class DeleteOldUpdates(webapp.RequestHandler):
+    def get(self):
+        mapreduce_params = {
+              'entity_kind': 'models.Topic',
+        }
+        
+        control.start_map("DeleteOldUpdates", "mapjob.keep_thirty_updates", "mapreduce.input_readers.DatastoreInputReader", mapreduce_params, 3)
+        self.response.out.write("ok")
+
 class MailUpdateStat(webapp.RequestHandler):
     """Send a daily stat summary email to admin"""
 
@@ -54,6 +63,7 @@ Daily All Update   : %d
 
 application = webapp.WSGIApplication(
                                      [(r'/admin/', MainPage),
+                                      (r'/admin/db/cou', DeleteOldUpdates),
                                       (r'/admin/stat/rusgraph',RUSGraph),
                                       (r'/admin/mail/updatesummary',MailUpdateStat)],
                                      debug=True)
