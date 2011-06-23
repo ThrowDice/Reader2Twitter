@@ -35,7 +35,7 @@ class DeleteOldUpdates(webapp.RequestHandler):
               'entity_kind': 'models.Topic',
         }
         
-        control.start_map("DeleteOldUpdates", "mapjob.keep_thirty_updates", "mapreduce.input_readers.DatastoreInputReader", mapreduce_params, 3)
+        control.start_map("DeleteOldUpdates", "mapjob.keep_thirty_updates", "mapreduce.input_readers.DatastoreInputReader", mapreduce_params, 2)
         self.response.out.write("ok")
 
 class MailUpdateStat(webapp.RequestHandler):
